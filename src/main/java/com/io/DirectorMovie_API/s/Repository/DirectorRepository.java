@@ -13,4 +13,5 @@ public interface DirectorRepository extends JpaRepository<Director, Integer> {
     List<Director> findByLocation(String Name);
 
 
+
 }

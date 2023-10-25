@@ -5,14 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class MovieRequestDto {
+@NoArgsConstructor
+public class Top3MovieDurationRequestDto {
 
     private String name;
     private int durationInMinutes;
-    private double imdbRating;
-
-    //getting id from director
-    private int directorId;
 }

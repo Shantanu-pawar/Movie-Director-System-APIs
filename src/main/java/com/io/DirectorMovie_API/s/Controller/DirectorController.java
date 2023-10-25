@@ -1,6 +1,7 @@
 package com.io.DirectorMovie_API.s.Controller;
 
 import com.io.DirectorMovie_API.s.Models.Director;
+import com.io.DirectorMovie_API.s.Models.Movie;
 import com.io.DirectorMovie_API.s.RequestDTO.DirectorRequestDto;
 import com.io.DirectorMovie_API.s.ResponseDTO.DirectorFindByNameResponse;
 import com.io.DirectorMovie_API.s.Service.DirectorService;
@@ -84,13 +85,33 @@ public class DirectorController {
         }
     }
 
-// // delete director by name [all same name director should be deleted]
-//    @DeleteMapping("/deleteDirectorByName/{name}")
-//    public ResponseEntity<String> deleteDirectorByName(@PathVariable("name") String name){
-//
-//        String response = directorService.deleteDirectorByName(name);
-//        return new ResponseEntity<>(response, HttpStatus.OK);
-//    }
+ // delete director by name [all same name director should be deleted]
+    @DeleteMapping("/deleteDirectorByName/{name}")
+    public ResponseEntity<String> deleteDirectorByName(@PathVariable("name") String name){
+        String response = directorService.deleteDirectorByName(name);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+
+    @GetMapping("getAllMoviesUsingDirectorName/{name}")
+    public List<Movie> getAllMoviesUsingDirectorName(@PathVariable("name") String name){
+         List<Movie> list = directorService.getAllMoviesUsingDirectorName(name);
+         return list;
+    }
+
+
+//    get all movies from particular director name;
+    @GetMapping("getOnlyMovieNamesUsingDirector/{name}")
+    public List<String> getOnlyMovieNamesUsingDirector(@PathVariable("name") String name){
+        List<String> moviesList = directorService.getOnlyMovieNamesUsingDirector(name);
+        return moviesList;
+    }
+
+
+    @GetMapping("countMoviesCreatedByDirector/{id}")
+    public int  countMoviesCreatedByDirector(@PathVariable("id") int directorId){
+        return directorService.countMoviesCreatedByDirector(directorId);
+    }
 
 
 }

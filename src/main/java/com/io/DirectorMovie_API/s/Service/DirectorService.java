@@ -130,9 +130,22 @@ public class DirectorService {
 
 
     public int countMoviesCreatedByDirector(int directorId){
-
         int count = directorRepository.findById(directorId).get().getNumberOfMovies();
         return count;
     }
+
+    public String deleteMoviesWithDirector(int directorId){
+
+        // this can get me all movies that director has been created
+        List<Movie> movieList = directorRepository.findById(directorId).get().getMovieList();
+
+        for(Movie movie : movieList){
+            Optional<Movie> movieOptional = movieRepository.findById(movie.getMovieId());
+            int id = movieOptional.get().getMovieId();
+            movieRepository.deleteById(id);
+        }
+        return "director with all movies associated has been deleted successfully";
+    }
+
 
 }

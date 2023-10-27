@@ -107,10 +107,18 @@ public class DirectorController {
         return moviesList;
     }
 
-
     @GetMapping("countMoviesCreatedByDirector/{id}")
     public int  countMoviesCreatedByDirector(@PathVariable("id") int directorId){
         return directorService.countMoviesCreatedByDirector(directorId);
+    }
+
+
+// not working perfectly - when we delete director then it's movies they have created that also be deleted
+
+    @DeleteMapping("deleteMoviesWithDirectorId/{id}")
+    public ResponseEntity<String>deleteMoviesWithDirector(@PathVariable("id") int directorId){
+        String response = directorService.deleteMoviesWithDirector(directorId);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 

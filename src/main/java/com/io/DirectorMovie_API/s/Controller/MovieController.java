@@ -1,6 +1,7 @@
 package com.io.DirectorMovie_API.s.Controller;
 
 
+import com.io.DirectorMovie_API.s.Models.Director;
 import com.io.DirectorMovie_API.s.Models.Movie;
 import com.io.DirectorMovie_API.s.RequestDTO.MovieRequestDto;
 import com.io.DirectorMovie_API.s.RequestDTO.Top3MovieDurationRequestDto;
@@ -17,23 +18,32 @@ public class MovieController {
     @Autowired
     MovieService movieService;
 
-    @PostMapping("/add")
+    @PostMapping("/addMovieUsingDto")
     public String addMovieUsingDto(@RequestBody MovieRequestDto requestDto) {
         return movieService.addMovieUsingDto(requestDto);
     }
 
-    @GetMapping("/findTop3MovieDuration")
-    public List<Movie> findTop3MovieDuration (@RequestBody Top3MovieDurationRequestDto requestDto){
-        return movieService.findTop3MovieDuration(requestDto);
+
+    // we also want's to get director information with it
+//    in return i only want movie name, rating, directorname, directorlocation
+
+    @GetMapping("/findTop2RatingMovie")
+    public List<Movie> findTop2RatedMovies(){
+        return movieService.findTop2RatedMovies();
+    }
+
+
+    @GetMapping("findDirectorByMovieName/{name}")
+    public Director findDirectorByMovieName(@PathVariable("name") String name){
+        return movieService.findDirectorByMovieName(name);
     }
 
 
 // here if we want to add director with movie
-    @PostMapping("/addMovieWithDirectorId")
+    @PostMapping("/null")
     public String addMovie(@RequestBody Movie movie){
         return movieService.addMovie(movie);
     }
-
 // this is how we pass the obj in Json
 //        {
 //            "name" : "shreya Ghoshal",

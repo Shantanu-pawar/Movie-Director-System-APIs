@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface MovieRepository extends JpaRepository<Movie,Integer> {
 
-    @Query(value = " select * from movie order by duration_in_minutes desc limit 3", nativeQuery = true)
-    public List<Movie> getTop3MovieDuration();
+    @Query(value = "select * from movie order by imdb_rating desc limit 2", nativeQuery = true)
+    public List<Movie> getTopRatedMovies();
 
 }

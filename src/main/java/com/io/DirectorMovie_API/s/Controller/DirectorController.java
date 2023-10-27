@@ -113,10 +113,8 @@ public class DirectorController {
     }
 
 
-// not working perfectly - when we delete director then it's movies they have created that also be deleted
-
     @DeleteMapping("deleteMoviesWithDirectorId/{id}")
-    public ResponseEntity<String>deleteMoviesWithDirector(@PathVariable("id") int directorId){
+    public ResponseEntity<String> deleteMoviesWithDirector(@PathVariable("id") int directorId){
         String response = directorService.deleteMoviesWithDirector(directorId);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

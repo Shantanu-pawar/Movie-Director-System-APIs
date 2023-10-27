@@ -14,7 +14,7 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int MovieId;
 
-    @Column(name = "Movie name",unique = true)
+    @Column(name = "movieName",unique = true)
     private String name;
 
     private int durationInMinutes;

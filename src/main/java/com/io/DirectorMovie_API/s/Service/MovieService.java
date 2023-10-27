@@ -6,12 +6,12 @@ import com.io.DirectorMovie_API.s.Models.Movie;
 import com.io.DirectorMovie_API.s.Repository.DirectorRepository;
 import com.io.DirectorMovie_API.s.Repository.MovieRepository;
 import com.io.DirectorMovie_API.s.RequestDTO.MovieRequestDto;
-import com.io.DirectorMovie_API.s.RequestDTO.Top3MovieDurationRequestDto;
+import com.io.DirectorMovie_API.s.ResponseDTO.DirectorResponseDto;
+import com.io.DirectorMovie_API.s.ResponseDTO.TopRatedMovieResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class MovieService {
@@ -43,15 +43,39 @@ public class MovieService {
         return "movie added";
     }
 
-    // NOT WORKIG : not able to fetch the data from db
+//    public List<Movie> findTop2RatedMovies(){
+//        return movieRepository.getTopRatedMovies();
+//    }
 
+    public List<TopRatedMovieResponseDto> findTop2RatedMovies(){
 
-    public List<Movie> findTop2RatedMovies(){
-        return movieRepository.getTopRatedMovies();
+        List<Movie> movieList = movieRepository.getTopRatedMovies();
+        List<TopRatedMovieResponseDto> dtoList = new ArrayList<>();
+
+        for(Movie movie : movieList){
+            Director director = movie.getDirector();
+
+            TopRatedMovieResponseDto topRatedMovieResponseDto = new TopRatedMovieResponseDto();
+            topRatedMovieResponseDto.setName(movie.getName());
+            topRatedMovieResponseDto.setDurationInMinutes(movie.getDurationInMinutes());
+            topRatedMovieResponseDto.setLocation(director.getLocation());
+
+            dtoList.add(topRatedMovieResponseDto);
+        }
+        return dtoList;
     }
 
-    public Director findDirectorByMovieName(String name){
-        Optional<Movie> movieOptional = directorRepository.;
+    public DirectorResponseDto findDirectorByMovieName(String name){
+        Movie movie = movieRepository.findByName(name);
+
+        Director director = movie.getDirector();
+
+        DirectorResponseDto directorResponseDto = new DirectorResponseDto();
+        directorResponseDto.setName(director.getName());
+        directorResponseDto.setLocation(director.getLocation());
+        directorResponseDto.setNumberOfMovies(director.getNumberOfMovies());
+
+        return directorResponseDto;
     }
 
     public String addMovie(Movie movie){

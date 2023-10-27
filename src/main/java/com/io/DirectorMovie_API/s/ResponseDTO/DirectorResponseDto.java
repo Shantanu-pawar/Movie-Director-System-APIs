@@ -1,4 +1,5 @@
-package com.io.DirectorMovie_API.s.RequestDTO;
+package com.io.DirectorMovie_API.s.ResponseDTO;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,8 +8,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Top3MovieDurationRequestDto {
+public class DirectorResponseDto {
 
     private String name;
-    private int durationInMinutes;
+    private String location;
+    private int numberOfMovies;
 }

@@ -136,14 +136,11 @@ public class DirectorService {
 
     public String deleteMoviesWithDirector(int directorId){
 
-        // this can get me all movies that director has been created
-        List<Movie> movieList = directorRepository.findById(directorId).get().getMovieList();
+        Director director = directorRepository.findById(directorId).get();
 
-        for(Movie movie : movieList){
-            Optional<Movie> movieOptional = movieRepository.findById(movie.getMovieId());
-            int id = movieOptional.get().getMovieId();
-            movieRepository.deleteById(id);
-        }
+        directorRepository.delete(director);
+        movieRepository.deleteAll(director.getMovieList());
+
         return "director with all movies associated has been deleted successfully";
     }
 

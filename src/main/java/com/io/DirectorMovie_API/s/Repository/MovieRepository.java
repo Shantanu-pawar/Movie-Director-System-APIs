@@ -14,4 +14,5 @@ public interface MovieRepository extends JpaRepository<Movie,Integer> {
     @Query(value = "select * from movie order by imdb_rating desc limit 2", nativeQuery = true)
     public List<Movie> getTopRatedMovies();
 
+    public Movie findByName(String name);
 }

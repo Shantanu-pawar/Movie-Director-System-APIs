@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Table
 @Data
 @NoArgsConstructor
-public class Movie {
+public class Movie{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

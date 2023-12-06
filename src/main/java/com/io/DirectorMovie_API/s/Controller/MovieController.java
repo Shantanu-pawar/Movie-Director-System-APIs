@@ -23,6 +23,14 @@ public class MovieController {
         return movieService.addMovieUsingDto(requestDto);
     }
 
+// if we want to pass the whole movie entity istead of MovieRequestDto
+// as object then in JSon format we've to pass this params.
+//        {
+//            "name" : "shreya Ghoshal",
+//            "durationInMinutes" : 224,
+//            "imdbRating" : 10.1,
+//            "director" : { "directorId" : 5 }
+//        }
 
     // we also want's to get director information with it
 //    in return i only want movie name, rating, directorname, directorlocation
@@ -44,24 +52,5 @@ public class MovieController {
     }
 
 
-
-
-
-
-// here if we want to add director with movie
-    @PostMapping("/null")
-    public String addMovie(@RequestBody Movie movie){
-        return movieService.addMovie(movie);
-    }
-// this is how we pass the obj in Json
-//        {
-//            "name" : "shreya Ghoshal",
-//            "durationInMinutes" : 224,
-//            "imdbRating" : 10.1,
-//
-//            "director" : {
-//                "directorId" : 5
-//            }
-//        }
 
 }

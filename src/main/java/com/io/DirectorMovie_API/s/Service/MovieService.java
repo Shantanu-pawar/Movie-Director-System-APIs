@@ -22,20 +22,26 @@ public class MovieService {
     @Autowired
     DirectorRepository directorRepository;
 
-    public String addMovieUsingDto(MovieRequestDto requestDto) {
+    public String addMovieUsingDto(MovieRequestDto requestDto) throws Exception {
 
         // we've created new obj and pass this parameters as req
-        Movie movie = new Movie(requestDto.getName(), requestDto.getDurationInMinutes(),
-                requestDto.getImdbRating());
+        Movie movie = new Movie(requestDto.getName(),
+                                requestDto.getDurationInMinutes(),
+                                requestDto.getImdbRating());
 
-        // we just set the director and save it in repo
-        Director director = directorRepository.findById(requestDto.getDirectorId()).get();
+        // we just set the director and save movie in repo
+        int id = requestDto.getDirectorId();
+        Optional<Director> directorOptional = directorRepository.findById(id);
+        if(!directorOptional.isPresent()){
+            throw new Exception("Director is not present so cannot set");
+        }
+
+        Director director = directorRepository.findById(id).get();
         movie.setDirector(director);
         movie = movieRepository.save(movie);
 
-        // since it's bi-directional mapping so we've to also set into director to update info.
+        // since it's biDirectional mapping so we've to also set into director to update info.
         director.addMovie(movie);
-
         director.setNumberOfMovies(director.getMovieList().size());
 
         // this is for setting movies number each time in director

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.*;
-
 @Service
 public class DirectorService {
 
@@ -40,12 +39,12 @@ public class DirectorService {
         return directorRepository.findAll();
     }
 
-    public String updateDirector(DirectorRequestDto reqDto) throws Exception {
+    public String updateDirectorById(DirectorRequestDto reqDto) throws Exception {
         // we just taken id from request DTO
         Optional<Director> directorOptional = directorRepository.findById(reqDto.getDirectorId());
 
         if(!directorOptional.isPresent()){
-            throw new Exception("author id is invalid Enter valid one");
+            throw new Exception("Can't able to update director, cause director is not present in DB");
         }
 
         // if it's present then we simply set the parameters and saved it again into our repo layer

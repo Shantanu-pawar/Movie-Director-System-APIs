@@ -48,10 +48,10 @@ public class DirectorController {
     }
 
     @PutMapping("/update")
-    // we actually taken director
+    // the same way we can delete director by id
     public String updateDirector(@RequestBody DirectorRequestDto directorRequestDto){
         try{
-            return directorService.updateDirector(directorRequestDto);
+            return directorService.updateDirectorById(directorRequestDto);
         }
         catch (Exception e){
             return "not able to update cause ID is invalid" + e.getMessage();

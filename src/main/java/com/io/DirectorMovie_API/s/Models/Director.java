@@ -20,16 +20,18 @@ public class Director {
 
     @Column(name = "directorName")
     private String name;
+
     private String location;
 
     private int numberOfMovies;
+
     private double imdbRating;
 
     @JsonIgnore
     @OneToMany(mappedBy = "director", cascade = CascadeType.ALL)
     private List<Movie> movieList = new ArrayList<>();
 
-    // when we've to get list's like movieList
+    // when we create movie then add movie each time in list and we can get the number.
     public void addMovie(Movie movie){
         this.movieList.add(movie);
     }

@@ -6,7 +6,10 @@ import com.io.DirectorMovie_API.s.RequestDTO.MovieRequestDto;
 import com.io.DirectorMovie_API.s.ResponseDTO.DirectorResponseDto;
 import com.io.DirectorMovie_API.s.ResponseDTO.TopRatedMovieResponseDto;
 import com.io.DirectorMovie_API.s.Service.MovieService;
+import jdk.javadoc.doclet.Reporter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,14 +22,22 @@ public class MovieController {
     MovieService movieService;
 
     @PostMapping("/addMovieUsingDto")
-    public String addMovieUsingDto(@RequestBody MovieRequestDto requestDto) {
-        return movieService.addMovieUsingDto(requestDto);
+    public ResponseEntity<String> addMovieUsingDto(@RequestBody MovieRequestDto requestDto) {
+
+        try {
+            String ans = movieService.addMovieUsingDto(requestDto);
+            return new ResponseEntity<>(ans, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            throw new RuntimeException(e);
+        }
     }
 
-// if we want to pass the whole movie entity istead of MovieRequestDto
+// if we want to pass the whole movie entity instead of MovieRequestDto
 // as object then in JSon format we've to pass this params.
 //        {
-//            "name" : "shreya Ghoshal",
+//            "name" : "shreya patil",
 //            "durationInMinutes" : 224,
 //            "imdbRating" : 10.1,
 //            "director" : { "directorId" : 5 }
